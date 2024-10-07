@@ -2192,6 +2192,10 @@ class DiGraph(GenericGraph):
                 arc_angle = self._loop_config[(u, u)].get("path_arc")
                 points_angle = self._loop_config[(u, u)].get("angle_between_points")
                 p1, p2 = self._get_self_loop_parameters(u, points_angle)
+            elif (v, u) in edges:
+                # create bidirectional edges
+                # TODO: Make the arc_angle configurable
+                p1, p2, arc_angle = self[u].get_center(), self[v], PI / 3
             else:
                 # create regular edges
                 p1, p2, arc_angle = self[u].get_center(), self[v], 0
